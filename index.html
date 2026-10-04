@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>window.__resources={"https://unpkg.com/react@18.3.1/umd/react.production.min.js":"./vendor/react.production.min.js","https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js":"./vendor/react-dom.production.min.js","https://unpkg.com/@babel/standalone@7.29.0/babel.min.js":"./vendor/babel.min.js"};</script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/modernist-bc4a8f85-6635-45d5-a0c9-c4b6e149dbdb/styles.css">
+<script src="_ds/modernist-bc4a8f85-6635-45d5-a0c9-c4b6e149dbdb/_ds_bundle.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap">
+<style>
+  :root {
+    --color-bg: #e4dbf4;
+    --font-heading: 'Lexend', system-ui, sans-serif;
+    --font-body: 'Lexend', system-ui, sans-serif;
+    --color-accent: #24365f; --color-accent-500: #24365f;
+    --color-accent-100: #eaeef7; --color-accent-200: #d2dcee; --color-accent-300: #a8bade;
+    --color-accent-400: #4a5d8f; --color-accent-600: #1d2c4e; --color-accent-700: #33508c;
+    --color-accent-800: #141d33; --color-accent-900: #0d1322;
+    --color-accent-2: #7b5fc4; --color-accent-2-500: #7b5fc4;
+    --color-accent-2-100: #f0ecfa; --color-accent-2-200: #ded6f2; --color-accent-2-300: #c2b4e4;
+    --color-accent-2-400: #9a82d4; --color-accent-2-600: #66499f; --color-accent-2-700: #4e3780;
+    --color-accent-2-800: #372559; --color-accent-2-900: #221639;
+  }
+  body, button, input, textarea, select, h1, h2, h3, h4, h5, h6, p, a, span, label, article, figure {
+    font-family: 'Lexend', system-ui, sans-serif;
+  }
+  html[data-theme="dark"] {
+    color-scheme: dark;
+    --color-bg: #161c30; --color-surface: #1e2640; --color-text: #cfcbd9;
+    --color-divider: color-mix(in srgb, #cfcbd9 34%, transparent);
+    --color-accent: #c2b4ee; --color-accent-500: #c2b4ee;
+    --color-accent-400: #a996e4; --color-accent-600: #d6ccf5; --color-accent-700: #cbbff2;
+    --color-accent-2-200: #2c2752; --color-accent-2-700: #cdbdf6;
+  }
+  html[data-theme="dark"] img[src*="neurobay-logo"] { filter: brightness(0) invert(0.82); }
+  html, body, body * { transition: background-color .2s ease, border-color .2s ease; }
+  body { margin: 0; text-wrap: pretty; background: var(--color-bg); }
+  a { color: var(--color-accent-700); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  a:hover { color: var(--color-accent); }
+  [data-reveal] { opacity: 0; transform: translateY(14px); transition: opacity .5s ease, transform .5s ease; }
+  [data-reveal="in"] { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { [data-reveal] { opacity: 1; transform: none; transition: none; } }
+</style>
+</helmet>
+
+<div style="font-family:var(--font-body);color:var(--color-text);background:var(--color-bg);min-height:100vh">
+
+  <nav class="nav" style="padding-inline:clamp(16px,4vw,52px);gap:clamp(12px,1.6vw,20px);flex-wrap:wrap">
+    <sc-if value="{{ notHome }}">
+      <a href="#" onClick="{{ goHome }}" style="display:flex;align-items:center;text-decoration:none">
+        <img src="assets/neurobay-logo.webp" alt="NeuroBay — neuroinclusive workplace consulting" style="height:56px;width:auto;display:block">
+      </a>
+    </sc-if>
+    <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+      <span style="min-height:56px"></span>
+    </sc-if>
+    <div style="display:flex;gap:6px;align-items:center;margin-right:auto">
+      <sc-if value="{{ speechIdle }}" hint-placeholder-val="{{ true }}">
+        <button type="button" class="btn btn-secondary btn-icon" onClick="{{ startListen }}" aria-label="Listen to this page read aloud" title="Listen" style="width:40px;height:40px;padding:0;display:flex;align-items:center;justify-content:center">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+        </button>
+      </sc-if>
+      <sc-if value="{{ speechActive }}">
+        <button type="button" class="btn btn-primary btn-icon" onClick="{{ togglePause }}" aria-label="{{ pauseLabel }}" title="{{ pauseLabel }}" style="width:40px;height:40px;padding:0;display:flex;align-items:center;justify-content:center">
+          <sc-if value="{{ isPlaying }}">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+          </sc-if>
+          <sc-if value="{{ isPaused }}">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+          </sc-if>
+        </button>
+        <button type="button" class="btn btn-secondary btn-icon" onClick="{{ stopListen }}" aria-label="Stop reading" title="Stop" style="width:40px;height:40px;padding:0;display:flex;align-items:center;justify-content:center">
+          <span style="width:12px;height:12px;background:currentColor;display:block"></span>
+        </button>
+      </sc-if>
+      <button type="button" class="btn btn-secondary btn-icon" onClick="{{ toggleTheme }}" aria-pressed="{{ isDark }}" aria-label="{{ themeLabel }}" title="{{ themeLabel }}" style="width:40px;height:40px;padding:0;display:flex;align-items:center;justify-content:center">
+        <sc-if value="{{ isLight }}" hint-placeholder-val="{{ true }}">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+        </sc-if>
+        <sc-if value="{{ isDark }}">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+        </sc-if>
+      </button>
+    </div>
+    <a href="#" onClick="{{ goServices }}" aria-current="{{ curServices }}" style="font-size:clamp(15px,1.4vw,18px);">Services</a>
+    <a href="#" onClick="{{ goAbout }}" aria-current="{{ curAbout }}" style="font-size:clamp(15px,1.4vw,18px);">About</a>
+    <a href="#" onClick="{{ goResources }}" aria-current="{{ curResources }}" style="font-size:clamp(15px,1.4vw,18px);">NeuroLab</a>
+    <a href="#" onClick="{{ goBlog }}" aria-current="{{ curBlog }}" style="font-size:clamp(15px,1.4vw,18px);">Blog</a>
+    <a href="#" onClick="{{ goContact }}" aria-current="{{ curContact }}" style="font-size:clamp(15px,1.4vw,18px);">Contact</a>
+    <button type="button" class="btn btn-primary" style="font-size:clamp(15px,1.4vw,18px);white-space:nowrap" onClick="{{ goContact }}">Email us</button>
+  </nav>
+
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <main>
+    <div style="max-width:1320px;margin:0 auto;padding:0 clamp(16px,4vw,52px)">
+
+      <section style="padding:72px 0 64px;display:flex;justify-content:center">
+        <img src="assets/neurobay-logo-large.webp" alt="NeuroBay — Neuroinclusive workplace consulting" style="width:100%;max-width:760px;height:auto;display:block">
+      </section>
+
+      <hr style="height:2px;border:0;margin:0;background:var(--color-divider)">
+
+      <section style="padding:56px 0 64px">
+        <h1 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(34px,4.6vw,62px);line-height:1.06;letter-spacing:-0.02em;margin:0 0 0 -0.058em">
+          <span style="display:block">Neuroinclusion</span>
+          <span style="display:block;color:var(--color-accent)">Benefits Us All</span>
+        </h1>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px clamp(40px,8vw,128px);margin-top:44px">
+          <p style="font-size:18px;line-height:1.7;margin:0;">Neuroinclusion is the intentional design of environments, systems, and cultures where neurodivergent professionals can fully participate and thrive without having to mask how their brains work. As diagnostic awareness grows, neurominorities represent a rapidly expanding segment of the modern workforce—meaning this talent is already on your team.</p>
+          <p style="font-size:18px;line-height:1.7;margin:0;">By embedding neuroinclusive practices into your operations, you eliminate invisible barriers and empower your neurodivergent employees to do their best work. At NeuroBay, we provide targeted services to help you transform your workplace. Ultimately, inclusive design doesn’t just accommodate a few; it drives organizational effectiveness and elevates the employee experience for everyone, regardless of their cognitive make-up.</p>
+        </div>
+        <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;margin-top:36px">
+          <button type="button" class="btn btn-primary" style="font-size:19px;padding:16px 28px;min-height:56px;white-space:nowrap" onClick="{{ goServices }}">See how we work</button>
+        </div>
+      </section>
+
+      <hr style="height:2px;border:0;margin:0;background:var(--color-divider)">
+
+      <section data-reveal style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px clamp(28px,5vw,88px);padding:64px 0">
+        <div>
+        <h2 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(26px,3vw,38px);line-height:1.14;letter-spacing:-0.015em;margin:0 0 28px;max-width:26ch">The Strategic Advantage of <span style="color:var(--color-accent)">Cognitive Diversity</span></h2>
+          <p style="font-size:18px;line-height:1.7;margin:0;">While traditional systems often create friction for neurodivergent individuals—contributing to disproportionate rates of underemployment and systemic barriers—the future of work demands a new approach. As the economy evolves, the most sought-after organizational traits are creativity, complex problem-solving, and disruptive innovation.</p>
+        </div>
+        <div style="display:grid;gap:24px;max-width:60ch;padding-top:clamp(0px,4vw,60px)">
+          <p style="font-size:18px;line-height:1.7;margin:0;">Neurodivergent professionals bring unique insights, lateral thinking, and specialized focus that can propel your organization forward. Embracing neuroinclusion is not just the right thing to do; it is a critical talent strategy for businesses that want to innovate and thrive.</p>
+        </div>
+      </section>
+
+      <hr style="height:2px;border:0;margin:0;background:var(--color-divider)">
+
+      <section data-reveal style="padding:64px 0">
+        <h2 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(26px,3vw,38px);line-height:1.14;letter-spacing:-0.015em;margin:0 0 28px;max-width:26ch"><span style="color:var(--color-accent)">Where Can You Start?</span></h2>
+        <p style="font-size:18px;line-height:1.7;margin:0 0 44px">Building an inclusive culture is a journey, and you can create massive impact by starting with deliberate, foundational steps. NeuroBay offers a spectrum of tailored interventions to support your organization, including:</p>
+        <div style="display:flex;flex-wrap:wrap;gap:24px">
+          <article style="flex:1 1 calc(33.333% - 16px);min-width:240px;border:2px solid var(--color-divider);padding:clamp(22px,2.4vw,32px)">
+            <h3 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:22px;line-height:1.18;letter-spacing:-0.01em;margin:0 0 14px">Awareness &amp; Education</h3>
+            <p style="font-size:17px;line-height:1.65;margin:0;color:color-mix(in srgb, var(--color-text) 78%, transparent)">Demystifying neurodiversity and building baseline literacy across your workforce.</p>
+          </article>
+          <article style="flex:1 1 calc(33.333% - 16px);min-width:240px;border:2px solid var(--color-divider);padding:clamp(22px,2.4vw,32px)">
+            <h3 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:22px;line-height:1.18;letter-spacing:-0.01em;margin:0 0 14px">Leadership Coaching</h3>
+            <p style="font-size:17px;line-height:1.65;margin:0;color:color-mix(in srgb, var(--color-text) 78%, transparent)">Equipping supervisors with objective, strengths-based performance management strategies tailored to different executive functioning needs.</p>
+          </article>
+          <article style="flex:1 1 calc(33.333% - 16px);min-width:240px;border:2px solid var(--color-divider);padding:clamp(22px,2.4vw,32px)">
+            <h3 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:22px;line-height:1.18;letter-spacing:-0.01em;margin:0 0 14px">Community Building</h3>
+            <p style="font-size:17px;line-height:1.65;margin:0;color:color-mix(in srgb, var(--color-text) 78%, transparent)">Establishing internal Employee Resource Groups (ERGs) to foster belonging, collaboration, and institutional knowledge sharing.</p>
+          </article>
+        </div>
+        <p style="font-size:18px;line-height:1.7;margin:36px 0 0">These specialized adjustments may seem small, but they yield a profound return on investment, enhancing psychological safety, retention, and team performance.</p>
+      </section>
+
+      <hr style="height:2px;border:0;margin:0;background:var(--color-divider)">
+
+      <section data-reveal style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px clamp(28px,5vw,80px);padding:64px 0">
+        <div>
+        <h2 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(26px,3vw,38px);line-height:1.14;letter-spacing:-0.015em;margin:0 0 28px;max-width:26ch">A Personal Commitment to the <span style="color:var(--color-accent)">Public Sector</span></h2>
+          <p style="font-size:18px;line-height:1.7;margin:0;">The public sector holds a very special place in my heart—it has been my professional home and my primary passion for over a decade. Having spent years in the trenches of municipal HR, modernizing talent assessments and championing equitable hiring practices from the inside, I know firsthand the immense dedication civil servants bring to our communities every day. I also intimately understand the unique systemic hurdles these organizations face.</p>
+        </div>
+        <div style="display:grid;gap:24px;max-width:60ch">
+          <p style="font-size:18px;line-height:1.7;margin:0;">Public agencies operate under intense legal and public scrutiny, relying on strict merit systems and standardized practices to ensure fairness. While this drive for consistency is vital, it frequently defaults to a rigid, one-size-fits-all approach that can unintentionally leave exceptional neurodivergent talent unsupported.</p>
+          <p style="font-size:18px;line-height:1.7;margin:0;">My mission is to help public organizations bridge this gap. I specialize in threading a very specific needle: providing your employees with the individualized, neuroinclusive conditions they need to thrive, while fiercely protecting merit principles. I understand how to integrate these frameworks seamlessly so that they enhance operational excellence without creating a perception of favoritism. When we better support the individuals serving our communities, we elevate the entire system.</p>
+        </div>
+      </section>
+
+    </div>
+
+    <section style="background:var(--color-accent-2-200);color:var(--color-accent)">
+      <div style="max-width:1320px;margin:0 auto;padding:72px clamp(16px,4vw,52px)">
+        <h2 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(32px,4.2vw,54px);line-height:1.06;letter-spacing:-0.015em;margin:0 0 0 -0.058em">
+          <span style="display:block">Start your neuroinclusion journey</span>
+          <span style="display:block">together with us.</span>
+        </h2>
+        <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;margin-top:36px">
+          <a class="btn btn-ghost" style="color:var(--color-accent);border-color:var(--color-accent)" href="{{ mailto }}">{{ email }}</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isServices }}">
+  <main style="max-width:1320px;margin:0 auto;padding:0 clamp(16px,4vw,52px)">
+    <section style="padding:72px 0 48px">
+      <h1 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(36px,4.8vw,64px);line-height:1.06;letter-spacing:-0.02em;margin:0 0 0 -0.058em">We are here to help your employees and organization thrive</h1>
+    </section>
+    <hr style="height:2px;border:0;margin:0;background:var(--color-divider)">
+
+    <section data-reveal style="display:flex;flex-wrap:wrap;gap:24px;padding:56px 0">
+      <article style="flex:1 1 calc(33.333% - 16px);min-width:240px;border:2px solid var(--color-divider);padding:clamp(22px,2.4vw,32px);display:flex;flex-direction:column;background:var(--color-bg)">
+        <h2 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:24px;line-height:1.18;letter-spacing:-0.01em;margin:0 0 16px;color:var(--color-accent)">Awareness &amp; Advocacy</h2>
+        <p style="font-size:17px;line-height:1.6;margin:0">True neuroinclusion begins with awareness and a foundational understanding of neurodiversity. To support your organization, we offer concise webinars tailored to any audience, comprehensive one-day workshops focusing on neuroinclusive HR practices, and specialized training for front-line roles like customer service representatives and police officers.</p>
+      </article>
+      <article style="flex:1 1 calc(33.333% - 16px);min-width:240px;border:2px solid var(--color-divider);padding:clamp(22px,2.4vw,32px);display:flex;flex-direction:column;background:var(--color-bg)">
+        <h2 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:24px;line-height:1.18;letter-spacing:-0.01em;margin:0 0 16px;color:var(--color-accent)">Employee Resource Groups</h2>
+        <p style="font-size:17px;line-height:1.6;margin:0">While neuroinclusion is gaining momentum, many employees still struggle with how to adapt their daily work habits to optimize performance and protect their well-being. We offer a six-week, facilitated cohort for neurodivergent employees that explores essential workplace topics, provides actionable strategies, and shares practical resources. By the end of the six-week program, groups are equipped to transition into a self-sustaining, employee-led community.</p>
+      </article>
+      <article style="flex:1 1 calc(33.333% - 16px);min-width:240px;border:2px solid var(--color-divider);padding:clamp(22px,2.4vw,32px);display:flex;flex-direction:column;background:var(--color-bg)">
+        <h2 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:24px;line-height:1.18;letter-spacing:-0.01em;margin:0 0 16px;color:var(--color-accent)">Special Accommodation Advisory</h2>
+        <p style="font-size:17px;line-height:1.6;margin:0">With rising awareness and diagnoses, requests for workplace accommodations from neurodivergent employees are growing. Because of their unique nature, these requests are often misunderstood by supervisors and HR professionals. We provide specialized training for the HR specialists processing them, along with support throughout the interactive process. Remember: most accommodations are completely free to implement.</p>
+      </article>
+      <article style="flex:1 1 calc(33.333% - 16px);min-width:240px;border:2px solid var(--color-divider);padding:clamp(22px,2.4vw,32px);display:flex;flex-direction:column;background:var(--color-bg)">
+        <h2 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:24px;line-height:1.18;letter-spacing:-0.01em;margin:0 0 16px;color:var(--color-accent)">Leaders &amp; Performance Management</h2>
+        <p style="font-size:17px;line-height:1.6;margin:0">Equip your leadership team to bring out the best in every employee. Supporting neurodivergent talent often requires leaders to adjust their traditional management styles and performance strategies. We offer one-on-one coaching and group workshops to help managers navigate these shifts, optimize team performance, and cultivate a truly inclusive environment where collaboration and creativity thrive.</p>
+      </article>
+      <article style="flex:1 1 calc(33.333% - 16px);min-width:240px;border:2px solid var(--color-divider);padding:clamp(22px,2.4vw,32px);display:flex;flex-direction:column;background:var(--color-bg)">
+        <h2 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:24px;line-height:1.18;letter-spacing:-0.01em;margin:0 0 16px;color:var(--color-accent)">Employee Listening</h2>
+        <p style="font-size:17px;line-height:1.6;margin:0">Discover where your organization stands on neuroinclusion. We conduct comprehensive workplace assessments to highlight your current strengths and uncover opportunities for growth. To capture the authentic experiences of your team, we also facilitate targeted employee engagement surveys. Leveraging this employee-driven feedback, we partner with you to design an effective, neuroinclusive organizational strategy.</p>
+      </article>
+      <article style="flex:1 1 calc(33.333% - 16px);min-width:240px;border:2px solid var(--color-divider);padding:clamp(22px,2.4vw,32px);display:flex;flex-direction:column;background:var(--color-bg)">
+        <h2 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:24px;line-height:1.18;letter-spacing:-0.01em;margin:0 0 16px;color:var(--color-accent)">Organizational Research</h2>
+        <p style="font-size:17px;line-height:1.6;margin:0">We are actively engaged in expanding the body of research on neuroinclusion in the workplace. We are always eager to partner with other researchers who share our mission to understand and elevate the experiences of neurodivergent employees. Together, we can uncover data-driven insights that drive meaningful, systemic change across organizations.</p>
+      </article>
+    </section>
+
+    <hr style="height:2px;border:0;margin:0;background:var(--color-divider)">
+
+    <section data-reveal style="display:flex;flex-wrap:wrap;gap:20px clamp(28px,4vw,56px);padding:64px 0 36px">
+      <h2 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(26px,3vw,38px);line-height:1.14;letter-spacing:-0.015em;margin:0;flex:1 1 260px;max-width:24ch">Services specific to <span style="color:var(--color-accent)">Public Sector</span></h2>
+      <p style="font-size:18px;line-height:1.7;margin:0;flex:2 1 420px">The public sector holds a very special place in my heart—it has been my professional home and my primary passion for over a decade. Having spent years in the trenches of municipal HR, modernizing talent assessments and championing equitable hiring practices from the inside, I know firsthand the immense dedication civil servants bring to our communities every day. I also intimately understand the unique systemic hurdles these organizations face.</p>
+    </section>
+
+    <section data-reveal style="padding:0 0 64px;display:grid;gap:44px">
+      <div>
+        <h3 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(22px,2.2vw,28px);line-height:1.2;letter-spacing:-0.012em;margin:0 0 16px">Tailored to Your Unique Culture</h3>
+        <p style="font-size:18px;line-height:1.7;margin:0">We recognize that no two organizations are exactly alike. Every service we provide is fully customizable to align seamlessly with your specific operational goals, organizational culture, and the people who drive your mission forward.</p>
+      </div>
+      <div>
+        <h3 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(22px,2.2vw,28px);line-height:1.2;letter-spacing:-0.012em;margin:0 0 16px">Specialized Frontline &amp; Law Enforcement Training</h3>
+        <p style="font-size:18px;line-height:1.7;margin:0">Beyond internal workforce strategies, public agencies face the unique challenge of serving diverse communities directly. To support this, we offer targeted neurodiversity awareness training designed specifically for frontline municipal staff, including <strong style="font-weight:600;color:var(--color-accent)">Police Officers</strong>, <strong style="font-weight:600;color:var(--color-accent)">Public Service Aides</strong>, and <strong style="font-weight:600;color:var(--color-accent)">Customer Service Center Representatives</strong>. These specialized programs equip your public-facing teams with the practical tools to communicate effectively, de-escalate misunderstandings, and provide equitable, safe service to neurodivergent citizens.</p>
+      </div>
+    </section>
+
+    <hr style="height:2px;border:0;margin:0;background:var(--color-divider)">
+    <section style="padding:56px 0 80px">
+      <p style="font-size:18.5px;line-height:1.65;max-width:52ch;margin:0 0 28px">Start your neuroinclusion journey together with us</p>
+      <button type="button" class="btn btn-primary" onClick="{{ goContact }}">Email us</button>
+    </section>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isAbout }}">
+  <main style="max-width:1320px;margin:0 auto;padding:0 clamp(16px,4vw,52px)">
+    <section style="padding:72px 0 48px">
+      <h1 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(36px,4.8vw,64px);line-height:1.06;letter-spacing:-0.02em;margin:0 0 0 -0.058em"><span style="color:var(--color-accent)">A small practice with big impact</span></h1>
+      <p style="font-size:18.5px;line-height:1.65;margin:28px 0 0">NeuroBay is new. That means you work directly with the person doing the work, and we take on a small number of clients at a time.</p>
+    </section>
+    <hr style="height:2px;border:0;margin:0;background:var(--color-divider)">
+
+    <section data-reveal style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:40px clamp(24px,5vw,80px);padding:56px 0">
+      <figure style="margin:0">
+        <img src="assets/founder.webp" alt="Dr. Urszula Kakar, founder of NeuroBay" style="width:100%;aspect-ratio:4/5;object-fit:cover;display:block">
+      </figure>
+      <div>
+        <h2 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:30px;line-height:1.15;letter-spacing:-0.015em;margin:0">Dr. Urszula Kakar</h2>
+        <p style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;margin:14px 0 24px;color:color-mix(in srgb, var(--color-text) 70%, transparent)">Founder and principal consultant</p>
+        <p style="font-size:17.5px;line-height:1.65;max-width:54ch;margin:0 0 20px">Dr. Urszula Kakar founded NeuroBay in response to an urgent need: ensuring neurodivergent individuals have the support, modern systems, and advocacy required to build fulfilling careers and sustain workplace wellness.</p>
+        <p style="font-size:17.5px;line-height:1.65;max-width:54ch;margin:0 0 20px">Dr. Kakar is an Industrial/Organizational Psychologist and senior HR professional with over 15 years of cross-sector experience. Her expertise spans the full talent lifecycle, including recruitment and selection, organizational research, learning and development, and strategic workforce planning.</p>
+        <p style="font-size:17.5px;line-height:1.65;max-width:54ch;margin:0 0 20px">Her consultancy is uniquely informed by her own lived experience. A late ADHD diagnosis provided vital context to her professional observations, illuminating how standard workplace structures often fail to accommodate diverse cognitive profiles. This convergence of scientific rigor and personal insight fuels her commitment to universal design and neuroinclusion.</p>
+        <p style="font-size:17.5px;line-height:1.65;max-width:54ch;margin:0">Grounded in empathy and equity, Dr. Kakar partners with organizations to translate neurodiversity awareness into sustainable workplace practices. Through strategic consulting, executive coaching, and awareness initiatives, NeuroBay helps forward-thinking employers design environments where all minds can excel.</p>
+      </div>
+    </section>
+
+    <section style="padding:0 0 80px">
+      <button type="button" class="btn btn-primary" onClick="{{ goContact }}">Email us</button>
+    </section>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isResources }}">
+  <main style="max-width:1320px;margin:0 auto;padding:0 clamp(16px,4vw,52px)">
+    <section style="padding:72px 0 64px">
+      <h1 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(36px,4.8vw,64px);line-height:1.06;letter-spacing:-0.02em;margin:0 0 0 -0.058em">NeuroLab - Space for Collaboration</h1>
+      <p style="font-size:18px;line-height:1.7;max-width:62ch;margin:36px 0 0">NeuroLab is a dedicated community space designed exclusively for HR professionals to connect, share insights, and collaborate on neuroinclusive strategies. Through our bi-weekly virtual meetups, we provide a safe, supportive environment to discuss emerging topics, workshop real-time challenges, and exchange best practices in workplace neuroinclusion. Whether you are navigating accommodation requests, rethinking performance management, or building awareness from the ground up, NeuroLab offers the peer support and expert guidance you need. Together, we can drive meaningful change and make our organizations truly welcoming for all minds.</p>
+      <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;margin-top:36px">
+        <button type="button" class="btn btn-primary" style="white-space:nowrap" onClick="{{ goContact }}">Email us</button>
+      </div>
+    </section>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isBlog }}">
+  <main style="max-width:1320px;margin:0 auto;padding:0 clamp(16px,4vw,52px)">
+    <section style="padding:72px 0 48px">
+      <h1 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(36px,4.8vw,64px);line-height:1.06;letter-spacing:-0.02em;margin:0 0 0 -0.058em">Neuroinclusive Blog</h1>
+      <p style="font-size:18.5px;line-height:1.65;margin:28px 0 0">Short posts on what we see inside organizations, the world that surrounds us, what changes when neuroinclusion is designed in rather than bolted on, and what the research says.</p>
+    </section>
+    <hr style="height:2px;border:0;margin:0;background:var(--color-divider)">
+
+    <section data-reveal style="padding:8px 0 56px">
+      <article style="display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:12px clamp(24px,4vw,72px);padding:40px 0">
+        <p style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;margin:0;color:var(--color-accent-2-700)">Latest</p>
+        <div style="display:grid;gap:22px;max-width:64ch">
+          <h2 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(26px,3vw,36px);line-height:1.15;letter-spacing:-0.015em;margin:0 0 6px"><span style="color:var(--color-accent)">Neuro-Normalization</span></h2>
+          <p style="font-size:18px;line-height:1.7;margin:0;">Even though we still have a long way to go to create a truly neuro-affirming society, I am energized by the meaningful shifts happening all around us. I’d love to share three recent moments that stood out to me:</p>
+          <p style="font-size:18px;line-height:1.7;margin:0;"><strong style="font-weight:600">A thoughtful birthday setup:</strong> My 15-year-old daughter recently attended a party where the host designed a quiet space for guests who might experience sensory overload. Anyone feeling overstimulated could retreat to a room specifically set up to soothe the senses—dimmed lights, gentle music, and a comfortable place to lie down and rest. It was a wonderful example of how a neurotypical host can proactively anticipate the needs of neurodivergent friends.</p>
+          <p style="font-size:18px;line-height:1.7;margin:0;"><strong style="font-weight:600">Open connection around the campfire:</strong> While at a Scout camping trip with my son, I sat by the fire listening to a group of kids talking. One boy asked another, “Are you autistic?” Through my adult lens, my guard immediately went up—I braced for teasing or bullying. I was completely wrong. The other boy simply answered, “No,” to which the first replied, “I’m autistic.” Without missing a beat, the second boy said, “I understand. I have an autistic friend.” No mockery, no judgment—just pure, matter-of-fact sharing and acceptance.</p>
+          <p style="font-size:18px;line-height:1.7;margin:0;"><strong style="font-weight:600">Sensory-friendly school orientation:</strong> I applaud Acalanes High School in Lafayette for offering a dedicated sensory-friendly window during the back-to-school walk-through this year. They set aside a 45-minute block without crowds, loud music, marching bands, or cheer performances—the traditional high-energy festivities that, for some students, feel far more overwhelming than fun.</p>
+          <p style="font-size:18px;line-height:1.7;margin:0;">Are you noticing everyday examples of neuro-normalization in your community? I would love to hear them. Please reach out to me at <a href="mailto:hello@neurobay.net">hello@neurobay.net</a>.</p>
+        </div>
+      </article>
+      <article style="display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:12px clamp(24px,4vw,72px);padding:40px 0;border-top:2px solid var(--color-divider)">
+        <p style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;margin:0;color:var(--color-accent-2-700)">Coming soon</p>
+        <div>
+          <h2 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:26px;line-height:1.2;letter-spacing:-0.01em;margin:0">Can focus on consistency of practice backfire?</h2>
+        </div>
+      </article>
+      <article style="display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:12px clamp(24px,4vw,72px);padding:40px 0;border-top:2px solid var(--color-divider)">
+        <p style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;margin:0;color:var(--color-accent-2-700)">Coming soon</p>
+        <div>
+          <h2 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:26px;line-height:1.2;letter-spacing:-0.01em;margin:0">Small talk or Big talk - could this be a choice?</h2>
+        </div>
+      </article>
+      <article style="display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:12px clamp(24px,4vw,72px);padding:40px 0;border-top:2px solid var(--color-divider)">
+        <p style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;margin:0;color:var(--color-accent-2-700)">Coming soon</p>
+        <div>
+          <h2 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:26px;line-height:1.2;letter-spacing:-0.01em;margin:0">Deep breathing makes me more anxious</h2>
+        </div>
+      </article>
+    </section>
+
+    <hr style="height:2px;border:0;margin:0;background:var(--color-divider)">
+    <section style="padding:56px 0 80px">
+      <p style="font-size:18.5px;line-height:1.65;max-width:52ch;margin:0 0 28px">Start your neuroinclusion journey together with us</p>
+      <button type="button" class="btn btn-primary" onClick="{{ goContact }}">Email us</button>
+    </section>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isContact }}">
+  <main style="max-width:1320px;margin:0 auto;padding:0 clamp(16px,4vw,52px)">
+    <section style="padding:72px 0 48px">
+      <h1 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(36px,4.8vw,64px);line-height:1.06;letter-spacing:-0.02em;margin:0 0 0 -0.058em"><span style="color:var(--color-accent)">Get in touch</span></h1>
+      <p style="font-size:18.5px;line-height:1.65;margin:28px 0 0">Email is the surest way to reach us, and you're welcome to write in whatever form suits you — bullet points, a long message, or two lines. We reply within two working days.</p>
+      <p style="font-size:24px;line-height:1.4;margin:28px 0 0"><a href="{{ mailto }}">{{ email }}</a></p>
+    </section>
+    <hr style="height:2px;border:0;margin:0;background:var(--color-divider)">
+
+    <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:48px clamp(24px,5vw,80px);padding:56px 0 80px">
+      <form onSubmit="{{ onSubmit }}" action="https://formspree.io/f/xrpbnwzk" method="POST" style="max-width:520px">
+        <div class="field">
+          <label for="nb-name">Your name</label>
+          <input class="input" id="nb-name" name="name" type="text" autocomplete="name">
+        </div>
+        <div class="field">
+          <label for="nb-org">Organization</label>
+          <input class="input" id="nb-org" name="organization" type="text" autocomplete="organization">
+        </div>
+        <div class="field">
+          <label for="nb-email">Email</label>
+          <input class="input" id="nb-email" name="email" required type="email" autocomplete="email">
+        </div>
+        <div class="field">
+          <label for="nb-msg">What would you like to change?</label>
+          <textarea class="input" id="nb-msg" name="message" required rows="6" style="resize:vertical"></textarea>
+        </div>
+        <div style="display:flex;gap:var(--space-3);align-items:center;flex-wrap:wrap;margin-top:8px">
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none"><button type="submit" class="btn btn-primary" style="white-space:nowrap;text-align:left">Send message</button>
+          <span role="status" style="font-size:14px;color:var(--color-accent-700)">{{ status }}</span>
+        </div>
+      </form>
+      <div>
+        <h2 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:22px;line-height:1.25;margin:0 0 16px">We would love to hear from you</h2>
+        <p style="font-size:17px;line-height:1.65;max-width:46ch;margin:0 0 20px;color:color-mix(in srgb, var(--color-text) 78%, transparent)">Send a voice note, a set of bullet points, or an existing document instead. We don't need a polished brief to have a useful first conversation, and we won't ask you to repeat yourself on a call.</p>
+        <p style="font-size:17px;line-height:1.65;max-width:46ch;margin:0;color:color-mix(in srgb, var(--color-text) 78%, transparent)">Tell us up front if you'd prefer written correspondence to a meeting, or a call with the agenda sent in advance. Either is normal here.</p>
+      </div>
+    </section>
+  </main>
+  </sc-if>
+
+  <hr style="height:2px;border:0;margin:0;background:var(--color-divider)">
+  <footer style="max-width:1320px;margin:0 auto;padding:32px clamp(16px,4vw,52px) 56px;display:flex;gap:24px;flex-wrap:wrap;align-items:baseline;justify-content:space-between;font-size:13px;line-height:1.65;color:color-mix(in srgb, var(--color-text) 70%, transparent)">
+    <span>NeuroBay — neuroinclusive workplace consulting</span>
+    <a href="{{ mailto }}">{{ email }}</a>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;email&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;hello@neurobay.net&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;motion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behavior&quot;}}">
+class Component extends DCLogic {
+  state = { page: 'home', status: '', theme: this.initialTheme(), speech: 'idle' };
+
+  pickVoice(synth) {
+    const vs = synth.getVoices().filter((v) => /^en/i.test(v.lang));
+    return vs.find((v) => /natural|neural|samantha|google us|aria|jenny|ava/i.test(v.name)) || vs.find((v) => v.default) || vs[0] || null;
+  }
+
+  startListen() {
+    const synth = window.speechSynthesis;
+    if (!synth) { alert('Reading aloud isn\u2019t supported in this browser.'); return; }
+    synth.cancel();
+    const token = (this._speechToken = (this._speechToken || 0) + 1);
+    const els = Array.from(document.querySelectorAll('main h1, main h2, main h3, main p, main li'))
+      .filter((el) => !el.closest('form') && !el.closest('button') && el.offsetParent !== null && el.innerText.trim());
+    if (!els.length) return;
+    const voice = this.pickVoice(synth);
+    els.forEach((el, i) => {
+      const u = new SpeechSynthesisUtterance(el.innerText.replace(/\s+/g, ' ').trim());
+      if (voice) { u.voice = voice; u.lang = voice.lang; }
+      u.rate = 0.95;
+      u.onstart = () => { if (token === this._speechToken) this.highlight(el); };
+      u.onend = () => { if (token === this._speechToken && i === els.length - 1) this.stopListen(); };
+      synth.speak(u);
+    });
+    this.setState({ speech: 'playing' });
+  }
+
+  highlight(el) {
+    this.clearHighlight();
+    el.style.outline = '2px solid var(--color-accent)';
+    el.style.outlineOffset = '6px';
+    this._hl = el;
+    const r = el.getBoundingClientRect();
+    if (r.top < 80 || r.bottom > window.innerHeight - 40) {
+      window.scrollTo({ top: r.top + window.scrollY - window.innerHeight / 3, behavior: 'smooth' });
+    }
+  }
+
+  clearHighlight() {
+    if (this._hl) { this._hl.style.outline = ''; this._hl.style.outlineOffset = ''; this._hl = null; }
+  }
+
+  togglePause() {
+    const synth = window.speechSynthesis;
+    if (!synth) return;
+    if (this.state.speech === 'playing') { synth.pause(); this.setState({ speech: 'paused' }); }
+    else { synth.resume(); this.setState({ speech: 'playing' }); }
+  }
+
+  stopListen() {
+    this._speechToken = (this._speechToken || 0) + 1;
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    this.clearHighlight();
+    if (this.state.speech !== 'idle') this.setState({ speech: 'idle' });
+  }
+
+  initialTheme() {
+    try { const t = localStorage.getItem('nb-theme'); if (t === 'dark' || t === 'light') return t; } catch (e) {}
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  applyTheme() { document.documentElement.setAttribute('data-theme', this.state.theme); }
+
+
+  componentWillUnmount() {
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    clearInterval(this._tick);
+    if (this._stream) this._stream.getTracks().forEach((t) => t.stop());
+    if (this._sweep) {
+      window.removeEventListener('scroll', this._sweep);
+      window.removeEventListener('resize', this._sweep);
+    }
+  }
+
+  componentDidMount() { this.applyTheme(); this.observe(); }
+  componentDidUpdate() { this.applyTheme(); this.observe(); }
+
+  observe() {
+    if (this.props.motion === false) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!this._io) {
+      this._io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.setAttribute('data-reveal', 'in'); this._io.unobserve(e.target); }
+        });
+      }, { rootMargin: '0px 0px -8% 0px' });
+    }
+    const sweep = () => {
+      document.querySelectorAll('[data-reveal=""]').forEach((el) => {
+        if (el.getBoundingClientRect().top < window.innerHeight) el.setAttribute('data-reveal', 'in');
+        else this._io.observe(el);
+      });
+    };
+    sweep();
+    if (!this._sweep) {
+      this._sweep = sweep;
+      window.addEventListener('scroll', sweep, { passive: true });
+      window.addEventListener('resize', sweep);
+      setTimeout(() => document.querySelectorAll('[data-reveal=""]').forEach((el) => el.setAttribute('data-reveal', 'in')), 4000);
+    }
+  }
+
+
+  go(page) {
+    return (e) => {
+      if (e && e.preventDefault) e.preventDefault();
+      this.stopListen();
+      this.setState({ page, status: '' });
+      window.scrollTo(0, 0);
+    };
+  }
+
+  renderVals() {
+    const p = this.state.page;
+    const email = this.props.email || 'hello@neurobay.net';
+    const cur = (k) => (p === k ? 'page' : undefined);
+    return {
+      speechIdle: this.state.speech === 'idle', speechActive: this.state.speech !== 'idle',
+      pauseLabel: this.state.speech === 'paused' ? 'Resume' : 'Pause',
+      isPlaying: this.state.speech === 'playing', isPaused: this.state.speech === 'paused',
+      themeLabel: this.state.theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode',
+      startListen: () => this.startListen(), togglePause: () => this.togglePause(), stopListen: () => this.stopListen(),
+      isDark: this.state.theme === 'dark', isLight: this.state.theme !== 'dark',
+      toggleTheme: () => {
+        const theme = this.state.theme === 'dark' ? 'light' : 'dark';
+        try { localStorage.setItem('nb-theme', theme); } catch (e) {}
+        this.setState({ theme });
+      },
+      isHome: p === 'home', notHome: p !== 'home', isServices: p === 'services', isAbout: p === 'about',
+      isResources: p === 'resources', isContact: p === 'contact', isBlog: p === 'blog',
+      curServices: cur('services'), curAbout: cur('about'), curBlog: cur('blog'),
+      curResources: cur('resources'), curContact: cur('contact'),
+      goHome: this.go('home'), goServices: this.go('services'), goAbout: this.go('about'),
+      goResources: this.go('resources'), goContact: this.go('contact'), goBlog: this.go('blog'),
+      email, mailto: 'mailto:' + email,
+      status: this.state.status,
+      onSubmit: (e) => {
+        e.preventDefault();
+        const form = e.target;
+        this.setState({ status: 'Sending\u2026' });
+        fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
+          .then((r) => {
+            if (r.ok) { form.reset(); this.setState({ status: 'Thanks \u2014 your message was sent. We\u2019ll reply within two working days.' }); }
+            else { this.setState({ status: 'Sorry, something went wrong. Please email hello@neurobay.net directly.' }); }
+          })
+          .catch(() => this.setState({ status: 'Sorry, something went wrong. Please email hello@neurobay.net directly.' }));
+      },
+    };
+  }
+}
+</script>
+</body>
+</html>
