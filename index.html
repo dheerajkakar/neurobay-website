@@ -58,6 +58,7 @@
   .nb-grid6 { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; }
   @media (max-width:900px) { .nb-grid6 { grid-template-columns:repeat(2,minmax(0,1fr)); } }
   @media (max-width:600px) { .nb-grid6 { grid-template-columns:minmax(0,1fr); } }
+  @media (min-width:901px) { .nav:has(img) .nb-navr { position:relative; top:-12px; } }
 </style>
 </helmet>
 
@@ -72,7 +73,7 @@
     <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
       <span style="min-height:56px"></span>
     </sc-if>
-    <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:clamp(12px,1.6vw,20px);margin-left:auto">
+    <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:clamp(12px,1.6vw,20px);margin-left:auto" class="nb-navr">
     <a href="#" onClick="{{ goServices }}" aria-current="{{ curServices }}" style="font-size:clamp(15px,1.4vw,18px);">Services</a>
     <a href="#" onClick="{{ goAbout }}" aria-current="{{ curAbout }}" style="font-size:clamp(15px,1.4vw,18px);">About</a>
     <a href="#" onClick="{{ goResources }}" aria-current="{{ curResources }}" style="font-size:clamp(15px,1.4vw,18px);">NeuroLab</a>
