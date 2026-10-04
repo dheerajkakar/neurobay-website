@@ -72,7 +72,14 @@
     <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
       <span style="min-height:56px"></span>
     </sc-if>
-    <div style="display:flex;gap:6px;align-items:center;margin-right:auto">
+    <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:clamp(12px,1.6vw,20px);margin-left:auto">
+    <a href="#" onClick="{{ goServices }}" aria-current="{{ curServices }}" style="font-size:clamp(15px,1.4vw,18px);">Services</a>
+    <a href="#" onClick="{{ goAbout }}" aria-current="{{ curAbout }}" style="font-size:clamp(15px,1.4vw,18px);">About</a>
+    <a href="#" onClick="{{ goResources }}" aria-current="{{ curResources }}" style="font-size:clamp(15px,1.4vw,18px);">NeuroLab</a>
+    <a href="#" onClick="{{ goBlog }}" aria-current="{{ curBlog }}" style="font-size:clamp(15px,1.4vw,18px);">Blog</a>
+    <a href="#" onClick="{{ goContact }}" aria-current="{{ curContact }}" style="font-size:clamp(15px,1.4vw,18px);">Contact</a>
+    <button type="button" class="btn btn-primary" style="font-size:clamp(15px,1.4vw,18px);white-space:nowrap" onClick="{{ goContact }}">Email us</button>
+    <div style="display:flex;gap:6px;align-items:center;margin-left:clamp(4px,1vw,12px)">
       <sc-if value="{{ speechIdle }}" hint-placeholder-val="{{ true }}">
         <button type="button" class="btn btn-secondary btn-icon" onClick="{{ startListen }}" aria-label="Listen to this page read aloud" title="Listen" style="width:40px;height:40px;padding:0;display:flex;align-items:center;justify-content:center">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
@@ -100,13 +107,6 @@
         </sc-if>
       </button>
     </div>
-    <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:clamp(12px,1.6vw,20px);margin-left:auto">
-    <a href="#" onClick="{{ goServices }}" aria-current="{{ curServices }}" style="font-size:clamp(15px,1.4vw,18px);">Services</a>
-    <a href="#" onClick="{{ goAbout }}" aria-current="{{ curAbout }}" style="font-size:clamp(15px,1.4vw,18px);">About</a>
-    <a href="#" onClick="{{ goResources }}" aria-current="{{ curResources }}" style="font-size:clamp(15px,1.4vw,18px);">NeuroLab</a>
-    <a href="#" onClick="{{ goBlog }}" aria-current="{{ curBlog }}" style="font-size:clamp(15px,1.4vw,18px);">Blog</a>
-    <a href="#" onClick="{{ goContact }}" aria-current="{{ curContact }}" style="font-size:clamp(15px,1.4vw,18px);">Contact</a>
-    <button type="button" class="btn btn-primary" style="font-size:clamp(15px,1.4vw,18px);white-space:nowrap" onClick="{{ goContact }}">Email us</button>
     </div>
   </nav>
 
