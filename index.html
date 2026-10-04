@@ -48,6 +48,15 @@
   [data-reveal] { opacity: 0; transform: translateY(14px); transition: opacity .5s ease, transform .5s ease; }
   [data-reveal="in"] { opacity: 1; transform: none; }
   @media (prefers-reduced-motion: reduce) { [data-reveal] { opacity: 1; transform: none; transition: none; } }
+  .nb-grid3 { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:2px; background:var(--color-divider); border:2px solid var(--color-divider); }
+  .nb-cell { background:var(--color-bg); padding:clamp(22px,2.4vw,32px); }
+  form .field { margin-bottom:24px; }
+  form .field > label { display:block; font-size:16px; font-weight:500; margin-bottom:8px; }
+  form .input { display:block; width:100%; box-sizing:border-box; font-size:18px; line-height:1.4; padding:14px 16px; min-height:54px; }
+  form textarea.input { min-height:200px; }
+  .nb-grid6 { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:2px; background:var(--color-divider); border:2px solid var(--color-divider); }
+  @media (max-width:900px) { .nb-grid6 { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+  @media (max-width:600px) { .nb-grid6 { grid-template-columns:minmax(0,1fr); } }
 </style>
 </helmet>
 
@@ -116,8 +125,8 @@
           <span style="display:block;color:var(--color-accent)">Benefits Us All</span>
         </h1>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px clamp(40px,8vw,128px);margin-top:44px">
-          <p style="font-size:18px;line-height:1.7;margin:0;">Neuroinclusion is the intentional design of environments, systems, and cultures where neurodivergent professionals can fully participate and thrive without having to mask how their brains work. As diagnostic awareness grows, neurominorities represent a rapidly expanding segment of the modern workforce—meaning this talent is already on your team.</p>
-          <p style="font-size:18px;line-height:1.7;margin:0;">By embedding neuroinclusive practices into your operations, you eliminate invisible barriers and empower your neurodivergent employees to do their best work. At NeuroBay, we provide targeted services to help you transform your workplace. Ultimately, inclusive design doesn’t just accommodate a few; it drives organizational effectiveness and elevates the employee experience for everyone, regardless of their cognitive make-up.</p>
+          <p style="font-size:18px;line-height:1.7;margin:0;border:0;background:none;padding:0">Neuroinclusion is the intentional design of environments, systems, and cultures where neurodivergent professionals can fully participate and thrive without having to mask how their brains work. As diagnostic awareness grows, neurominorities represent a rapidly expanding segment of the modern workforce—meaning this talent is already on your team.</p>
+          <p style="font-size:18px;line-height:1.7;margin:0;border:0;background:none;padding:0">By embedding neuroinclusive practices into your operations, you eliminate invisible barriers and empower your neurodivergent employees to do their best work. At NeuroBay, we provide targeted services to help you transform your workplace. Ultimately, inclusive design doesn’t just accommodate a few; it drives organizational effectiveness and elevates the employee experience for everyone, regardless of their cognitive make-up.</p>
         </div>
         <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;margin-top:36px">
           <button type="button" class="btn btn-primary" style="font-size:19px;padding:16px 28px;min-height:56px;white-space:nowrap" onClick="{{ goServices }}">See how we work</button>
@@ -141,16 +150,16 @@
       <section data-reveal style="padding:64px 0">
         <h2 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(26px,3vw,38px);line-height:1.14;letter-spacing:-0.015em;margin:0 0 28px;max-width:26ch"><span style="color:var(--color-accent)">Where Can You Start?</span></h2>
         <p style="font-size:18px;line-height:1.7;margin:0 0 44px">Building an inclusive culture is a journey, and you can create massive impact by starting with deliberate, foundational steps. NeuroBay offers a spectrum of tailored interventions to support your organization, including:</p>
-        <div style="display:flex;flex-wrap:wrap;gap:24px">
-          <article style="flex:1 1 calc(33.333% - 16px);min-width:240px;border:2px solid var(--color-divider);background:color-mix(in srgb, var(--color-text) 6%, transparent);padding:clamp(22px,2.4vw,32px)">
+        <div class="nb-grid3">
+          <article class="nb-cell">
             <h3 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:22px;line-height:1.18;letter-spacing:-0.01em;margin:0 0 14px">Awareness &amp; Education</h3>
             <p style="font-size:17px;line-height:1.65;margin:0;color:color-mix(in srgb, var(--color-text) 78%, transparent)">Demystifying neurodiversity and building baseline literacy across your workforce.</p>
           </article>
-          <article style="flex:1 1 calc(33.333% - 16px);min-width:240px;border:2px solid var(--color-divider);background:color-mix(in srgb, var(--color-text) 6%, transparent);padding:clamp(22px,2.4vw,32px)">
+          <article class="nb-cell">
             <h3 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:22px;line-height:1.18;letter-spacing:-0.01em;margin:0 0 14px">Leadership Coaching</h3>
             <p style="font-size:17px;line-height:1.65;margin:0;color:color-mix(in srgb, var(--color-text) 78%, transparent)">Equipping supervisors with objective, strengths-based performance management strategies tailored to different executive functioning needs.</p>
           </article>
-          <article style="flex:1 1 calc(33.333% - 16px);min-width:240px;border:2px solid var(--color-divider);background:color-mix(in srgb, var(--color-text) 6%, transparent);padding:clamp(22px,2.4vw,32px)">
+          <article class="nb-cell">
             <h3 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:22px;line-height:1.18;letter-spacing:-0.01em;margin:0 0 14px">Community Building</h3>
             <p style="font-size:17px;line-height:1.65;margin:0;color:color-mix(in srgb, var(--color-text) 78%, transparent)">Establishing internal Employee Resource Groups (ERGs) to foster belonging, collaboration, and institutional knowledge sharing.</p>
           </article>
@@ -194,31 +203,32 @@
     </section>
     <hr style="height:2px;border:0;margin:0;background:var(--color-divider)">
 
-    <section data-reveal style="display:flex;flex-wrap:wrap;gap:24px;padding:56px 0">
-      <article style="flex:1 1 calc(33.333% - 16px);min-width:240px;border:2px solid var(--color-divider);padding:clamp(22px,2.4vw,32px);display:flex;flex-direction:column;background:var(--color-bg)">
+    <section data-reveal style="padding:56px 0"><div class="nb-grid6">
+      <article class="nb-cell" style="display:flex;flex-direction:column">
         <h2 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:24px;line-height:1.18;letter-spacing:-0.01em;margin:0 0 16px;color:var(--color-accent)">Awareness &amp; Advocacy</h2>
         <p style="font-size:17px;line-height:1.6;margin:0">True neuroinclusion begins with awareness and a foundational understanding of neurodiversity. To support your organization, we offer concise webinars tailored to any audience, comprehensive one-day workshops focusing on neuroinclusive HR practices, and specialized training for front-line roles like customer service representatives and police officers.</p>
       </article>
-      <article style="flex:1 1 calc(33.333% - 16px);min-width:240px;border:2px solid var(--color-divider);padding:clamp(22px,2.4vw,32px);display:flex;flex-direction:column;background:var(--color-bg)">
+      <article class="nb-cell" style="display:flex;flex-direction:column">
         <h2 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:24px;line-height:1.18;letter-spacing:-0.01em;margin:0 0 16px;color:var(--color-accent)">Employee Resource Groups</h2>
         <p style="font-size:17px;line-height:1.6;margin:0">While neuroinclusion is gaining momentum, many employees still struggle with how to adapt their daily work habits to optimize performance and protect their well-being. We offer a six-week, facilitated cohort for neurodivergent employees that explores essential workplace topics, provides actionable strategies, and shares practical resources. By the end of the six-week program, groups are equipped to transition into a self-sustaining, employee-led community.</p>
       </article>
-      <article style="flex:1 1 calc(33.333% - 16px);min-width:240px;border:2px solid var(--color-divider);padding:clamp(22px,2.4vw,32px);display:flex;flex-direction:column;background:var(--color-bg)">
+      <article class="nb-cell" style="display:flex;flex-direction:column">
         <h2 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:24px;line-height:1.18;letter-spacing:-0.01em;margin:0 0 16px;color:var(--color-accent)">Special Accommodation Advisory</h2>
         <p style="font-size:17px;line-height:1.6;margin:0">With rising awareness and diagnoses, requests for workplace accommodations from neurodivergent employees are growing. Because of their unique nature, these requests are often misunderstood by supervisors and HR professionals. We provide specialized training for the HR specialists processing them, along with support throughout the interactive process. Remember: most accommodations are completely free to implement.</p>
       </article>
-      <article style="flex:1 1 calc(33.333% - 16px);min-width:240px;border:2px solid var(--color-divider);padding:clamp(22px,2.4vw,32px);display:flex;flex-direction:column;background:var(--color-bg)">
+      <article class="nb-cell" style="display:flex;flex-direction:column">
         <h2 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:24px;line-height:1.18;letter-spacing:-0.01em;margin:0 0 16px;color:var(--color-accent)">Leaders &amp; Performance Management</h2>
         <p style="font-size:17px;line-height:1.6;margin:0">Equip your leadership team to bring out the best in every employee. Supporting neurodivergent talent often requires leaders to adjust their traditional management styles and performance strategies. We offer one-on-one coaching and group workshops to help managers navigate these shifts, optimize team performance, and cultivate a truly inclusive environment where collaboration and creativity thrive.</p>
       </article>
-      <article style="flex:1 1 calc(33.333% - 16px);min-width:240px;border:2px solid var(--color-divider);padding:clamp(22px,2.4vw,32px);display:flex;flex-direction:column;background:var(--color-bg)">
+      <article class="nb-cell" style="display:flex;flex-direction:column">
         <h2 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:24px;line-height:1.18;letter-spacing:-0.01em;margin:0 0 16px;color:var(--color-accent)">Employee Listening</h2>
         <p style="font-size:17px;line-height:1.6;margin:0">Discover where your organization stands on neuroinclusion. We conduct comprehensive workplace assessments to highlight your current strengths and uncover opportunities for growth. To capture the authentic experiences of your team, we also facilitate targeted employee engagement surveys. Leveraging this employee-driven feedback, we partner with you to design an effective, neuroinclusive organizational strategy.</p>
       </article>
-      <article style="flex:1 1 calc(33.333% - 16px);min-width:240px;border:2px solid var(--color-divider);padding:clamp(22px,2.4vw,32px);display:flex;flex-direction:column;background:var(--color-bg)">
+      <article class="nb-cell" style="display:flex;flex-direction:column">
         <h2 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:24px;line-height:1.18;letter-spacing:-0.01em;margin:0 0 16px;color:var(--color-accent)">Organizational Research</h2>
         <p style="font-size:17px;line-height:1.6;margin:0">We are actively engaged in expanding the body of research on neuroinclusion in the workplace. We are always eager to partner with other researchers who share our mission to understand and elevate the experiences of neurodivergent employees. Together, we can uncover data-driven insights that drive meaningful, systemic change across organizations.</p>
       </article>
+    </div>
     </section>
 
     <hr style="height:2px;border:0;margin:0;background:var(--color-divider)">
@@ -344,8 +354,8 @@
     </section>
     <hr style="height:2px;border:0;margin:0;background:var(--color-divider)">
 
-    <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:48px clamp(24px,5vw,80px);padding:56px 0 80px">
-      <form onSubmit="{{ onSubmit }}" action="https://formspree.io/f/xrpbnwzk" method="POST" style="max-width:520px">
+    <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:48px clamp(24px,5vw,80px);padding:56px 0 80px;align-items:start">
+      <form onSubmit="{{ onSubmit }}" action="https://formspree.io/f/xrpbnwzk" method="POST" style="width:100%">
         <div class="field">
           <label for="nb-name">Your name</label>
           <input class="input" id="nb-name" name="name" type="text" autocomplete="name">
