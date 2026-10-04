@@ -17,6 +17,7 @@
 <style>
   :root {
     --color-bg: #e4dbf4;
+    --color-divider: color-mix(in srgb, #201e1d 60%, transparent);
     --font-heading: 'Lexend', system-ui, sans-serif;
     --font-body: 'Lexend', system-ui, sans-serif;
     --color-accent: #24365f; --color-accent-500: #24365f;
@@ -89,12 +90,14 @@
         </sc-if>
       </button>
     </div>
+    <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:clamp(12px,1.6vw,20px);margin-left:auto">
     <a href="#" onClick="{{ goServices }}" aria-current="{{ curServices }}" style="font-size:clamp(15px,1.4vw,18px);">Services</a>
     <a href="#" onClick="{{ goAbout }}" aria-current="{{ curAbout }}" style="font-size:clamp(15px,1.4vw,18px);">About</a>
     <a href="#" onClick="{{ goResources }}" aria-current="{{ curResources }}" style="font-size:clamp(15px,1.4vw,18px);">NeuroLab</a>
     <a href="#" onClick="{{ goBlog }}" aria-current="{{ curBlog }}" style="font-size:clamp(15px,1.4vw,18px);">Blog</a>
     <a href="#" onClick="{{ goContact }}" aria-current="{{ curContact }}" style="font-size:clamp(15px,1.4vw,18px);">Contact</a>
     <button type="button" class="btn btn-primary" style="font-size:clamp(15px,1.4vw,18px);white-space:nowrap" onClick="{{ goContact }}">Email us</button>
+    </div>
   </nav>
 
   <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
@@ -139,15 +142,15 @@
         <h2 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(26px,3vw,38px);line-height:1.14;letter-spacing:-0.015em;margin:0 0 28px;max-width:26ch"><span style="color:var(--color-accent)">Where Can You Start?</span></h2>
         <p style="font-size:18px;line-height:1.7;margin:0 0 44px">Building an inclusive culture is a journey, and you can create massive impact by starting with deliberate, foundational steps. NeuroBay offers a spectrum of tailored interventions to support your organization, including:</p>
         <div style="display:flex;flex-wrap:wrap;gap:24px">
-          <article style="flex:1 1 calc(33.333% - 16px);min-width:240px;border:2px solid var(--color-divider);padding:clamp(22px,2.4vw,32px)">
+          <article style="flex:1 1 calc(33.333% - 16px);min-width:240px;border:2px solid var(--color-divider);background:color-mix(in srgb, var(--color-text) 6%, transparent);padding:clamp(22px,2.4vw,32px)">
             <h3 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:22px;line-height:1.18;letter-spacing:-0.01em;margin:0 0 14px">Awareness &amp; Education</h3>
             <p style="font-size:17px;line-height:1.65;margin:0;color:color-mix(in srgb, var(--color-text) 78%, transparent)">Demystifying neurodiversity and building baseline literacy across your workforce.</p>
           </article>
-          <article style="flex:1 1 calc(33.333% - 16px);min-width:240px;border:2px solid var(--color-divider);padding:clamp(22px,2.4vw,32px)">
+          <article style="flex:1 1 calc(33.333% - 16px);min-width:240px;border:2px solid var(--color-divider);background:color-mix(in srgb, var(--color-text) 6%, transparent);padding:clamp(22px,2.4vw,32px)">
             <h3 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:22px;line-height:1.18;letter-spacing:-0.01em;margin:0 0 14px">Leadership Coaching</h3>
             <p style="font-size:17px;line-height:1.65;margin:0;color:color-mix(in srgb, var(--color-text) 78%, transparent)">Equipping supervisors with objective, strengths-based performance management strategies tailored to different executive functioning needs.</p>
           </article>
-          <article style="flex:1 1 calc(33.333% - 16px);min-width:240px;border:2px solid var(--color-divider);padding:clamp(22px,2.4vw,32px)">
+          <article style="flex:1 1 calc(33.333% - 16px);min-width:240px;border:2px solid var(--color-divider);background:color-mix(in srgb, var(--color-text) 6%, transparent);padding:clamp(22px,2.4vw,32px)">
             <h3 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:22px;line-height:1.18;letter-spacing:-0.01em;margin:0 0 14px">Community Building</h3>
             <p style="font-size:17px;line-height:1.65;margin:0;color:color-mix(in srgb, var(--color-text) 78%, transparent)">Establishing internal Employee Resource Groups (ERGs) to foster belonging, collaboration, and institutional knowledge sharing.</p>
           </article>
